@@ -28,7 +28,31 @@ class Rocket {
     return `Rocket ${this.name} is ready for liftoff!`
   }
 
-  // @TODO: Add new method here with more complexity.
+  /*
+   * messageCode is the code for a message.
+   * If passed, it is expected to be a number.
+   * Numbers less than 10 indicate good statuses.
+   * Numbers 10 or greater represent various problems with the rocket.
+   */
+  sendCodedSignal(messageCode) {
+    let signalInfo = [];
+    if (messageCode === undefined) {
+      signalInfo.push('boop'); // ready for a messageCode
+    } else if (messageCode < 10) {
+      signalInfo.push('beep');
+      if (this.flying) {
+        signalInfo.push('beep');
+      }
+    } else {
+      if (this.flying) {
+        signalInfo = signalInfo.concat(['boop', 'boop', 'boop']);
+      } else {
+        signalInfo = signalInfo.concat(['boop', 'beep', 'beep']);
+      }
+    }
+
+    return signalInfo.join(' ');
+  }
 
   // helper methods - don't need to test these!
 
